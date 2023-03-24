@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import LoginPage from "./component/LoginPage/LoginPage";
+import HomePage from "./component/HomePage/HomePage";
+import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Authorization from "./component/Authorization/Authorization";
+import Client from "./component/HomePage/Client/Client";
+import Applications from "./component/HomePage/Applications/Applications";
+import Expenses from "./component/HomePage/Expenses/Expenses";
+import Income from "./component/HomePage/Income/Income";
+
+
 
 function App() {
+  const [userRegistr, setUserRegistr] = useState(localStorage.getItem("user"));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path="/" element={userRegistr ? <HomePage/> : <LoginPage/>} />
+        <Route path="/auth" element={userRegistr ? <HomePage/> : <Authorization />} />
+        <Route path="/client" element={<Client/>}/>
+        <Route path="/applications" element={<Applications/>}/>
+        <Route path="/expenses" element={<Expenses/>}/>
+        <Route path="/income" element={<Income/>}/>
+
+      </Routes> 
     </div>
   );
 }
